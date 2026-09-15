@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create and verify a cryptographic fingerprint of evidence without uploading the original file or personal data." />
+  <meta name="theme-color" content="#07111f" />
+  <title>Angel Proof — Verifiable file integrity</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230b3153' d='M32 3 56 13v16c0 16-10 26-24 32C18 55 8 45 8 29V13z'/%3E%3Cpath fill='none' stroke='%2359e6dc' stroke-width='6' stroke-linecap='round' d='m20 31 8 8 17-19'/%3E%3C/svg%3E" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Angel Proof, home">
+      <img src="./assets/angel-proof-logo.png" alt="" width="40" height="40" />
+      <span><b>ANGEL</b> PROOF</span>
+    </a>
+    <div class="topbar-actions">
+      <div class="language-switch" aria-label="Language">
+        <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
+        <button type="button" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <div class="network"><i></i> Solana Devnet</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="main-title">
+      <p class="eyebrow" data-i18n="eyebrow">OJO CIUDADANO · INTEGRITY LAYER</p>
+      <h1 id="main-title"><span data-i18n="headline">Prove that a file</span><br /><em data-i18n="headlineAccent">remains unchanged.</em></h1>
+      <p class="lede" data-i18n="lede">Create a unique fingerprint on your device. The file is never uploaded; only its fingerprint can be anchored to a public network.</p>
+      <div class="trust-row" aria-label="Privacy guarantees" data-i18n-aria="trustAria">
+        <span data-i18n="trustLocal">Local processing</span><span data-i18n="trustNoAccount">No account required</span><span data-i18n="trustNoStorage">No evidence storage</span>
+      </div>
+    </section>
+
+    <section class="workspace" aria-label="Angel Proof tool" data-i18n-aria="toolAria">
+      <nav class="tabs" aria-label="Operations" data-i18n-aria="operationsAria">
+        <button class="tab active" data-panel="create" aria-selected="true" data-i18n="createTab">Create receipt</button>
+        <button class="tab" data-panel="verify" aria-selected="false" data-i18n="verifyTab">Verify evidence</button>
+      </nav>
+
+      <div id="create-panel" class="panel active">
+        <div class="steps"><span class="current">01</span><span>02</span><span>03</span></div>
+        <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Select a file to generate a fingerprint" data-i18n-aria="dropAria">
+          <input id="file-input" type="file" hidden />
+          <div class="upload-icon" aria-hidden="true">↑</div>
+          <h2 data-i18n="selectEvidence">Select the evidence</h2>
+          <p data-i18n="dragEvidence">Drag a photo, video, audio file, or document</p>
+          <button id="browse-button" class="button secondary" type="button" data-i18n="chooseFile">Choose file</button>
+          <small data-i18n="neverLeaves">No content leaves this device.</small>
+        </div>
+
+        <div id="hash-result" class="result-card" hidden>
+          <div class="result-head">
+            <div><p class="label" data-i18n="processedFile">PROCESSED FILE</p><h2 id="file-name">—</h2></div>
+            <span class="verified-badge" data-i18n="fingerprintCreated">Fingerprint created</span>
+          </div>
+          <dl class="file-meta">
+            <div><dt data-i18n="size">Size</dt><dd id="file-size">—</dd></div>
+            <div><dt data-i18n="type">Type</dt><dd id="file-type">—</dd></div>
+            <div><dt data-i18n="processed">Processed</dt><dd id="processed-at">—</dd></div>
+          </dl>
+          <div class="hash-block">
+            <div class="hash-title"><span>SHA-256</span><button id="copy-hash" type="button" data-i18n="copy">Copy</button></div>
+            <code id="hash-value">—</code>
+          </div>
+          <label class="consent"><input id="anchor-consent" type="checkbox" /> <span data-i18n="consent">I understand that only this fingerprint will be published to Solana Devnet, a public test network. This does not certify the truth or legal validity of the file.</span></label>
+          <div class="actions">
+            <button id="download-receipt" class="button secondary" type="button" data-i18n="downloadReceipt">Download receipt</button>
+            <button id="anchor-button" class="button primary" type="button" disabled data-i18n="anchorSolana">Anchor on Solana</button>
+          </div>
+          <p id="wallet-message" class="status-message" role="status"></p>
+        </div>
+      </div>
+
+      <div id="verify-panel" class="panel">
+        <div class="verify-grid">
+          <label class="mini-drop" for="verify-file"><span>1</span><b data-i18n="fileToVerify">File to verify</b><small id="verify-file-name">Select file</small><input id="verify-file" type="file" /></label>
+          <label class="mini-drop" for="receipt-file"><span>2</span><b data-i18n="receiptLabel">Angel Proof receipt</b><small id="receipt-file-name">Select .json</small><input id="receipt-file" type="file" accept="application/json,.json" /></label>
+        </div>
+        <button id="verify-button" class="button primary wide" type="button" disabled data-i18n="verifyButton">Verify file and anchor</button>
+        <div id="verify-result" class="verify-result" hidden role="status"></div>
+      </div>
+    </section>
+
+    <section class="explain" aria-labelledby="explain-title">
+      <div><p class="eyebrow" data-i18n="whatItProves">WHAT IT PROVES</p><h2 id="explain-title" data-i18n="integrityTitle">Integrity, not interpretation.</h2></div>
+      <p data-i18n="integrityBody">A match proves that the verified file produces the same fingerprint as the registered one. It does not prove that the content is true, who created it, or guarantee legal admissibility.</p>
+    </section>
+
+    <section class="judge-path" aria-labelledby="judge-path-title">
+      <div class="judge-path-head">
+        <div><p class="eyebrow" data-i18n="quickTestEyebrow">QUICK TEST</p><h2 id="judge-path-title" data-i18n="quickTestTitle">Verify the core flow in under two minutes.</h2></div>
+        <span data-i18n="noWalletNeeded">No wallet needed</span>
+      </div>
+      <ol>
+        <li><b>01</b><span><strong data-i18n="stepOneTitle">Choose a test file</strong><small data-i18n="stepOneBody">Its SHA-256 fingerprint is computed locally.</small></span></li>
+        <li><b>02</b><span><strong data-i18n="stepTwoTitle">Download the receipt</strong><small data-i18n="stepTwoBody">It contains the fingerprint and verification metadata.</small></span></li>
+        <li><b>03</b><span><strong data-i18n="stepThreeTitle">Verify the pair</strong><small data-i18n="stepThreeBody">Upload the same file and receipt to confirm an exact match.</small></span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer><span data-i18n="footerLeft">Public prototype · Angel Protector / Ojo Ciudadano</span><span data-i18n="footerRight">Your evidence stays with you.</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
