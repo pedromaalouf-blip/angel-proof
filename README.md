@@ -1,5 +1,7 @@
 # Angel Proof
 
+[Open the live application](https://angel-proof.waveblueenergy.chatgpt.site)
+
 Angel Proof is a privacy-first web application for checking whether a file has changed. It computes a SHA-256 fingerprint locally in the browser, creates a portable JSON receipt, and can optionally anchor only that fingerprint to Solana Devnet through a wallet-signed Memo Program transaction.
 
 The original photo, video, audio file, or document never leaves the user's device.
@@ -19,25 +21,25 @@ No account or wallet is required for this core flow. Optional Solana anchoring r
 
 ## Technology
 
-- HTML5, CSS3, and JavaScript Progressive Web App
-- Web Crypto API for local SHA-256 hashing
-- Portable `angel-proof/receipt/v1` JSON receipts
-- Solana Web3.js, Solana Memo Program, Phantom, and Solana Devnet RPC
-- Service worker for installability and offline reuse of the application shell
+* HTML5, CSS3, and JavaScript Progressive Web App
+* Web Crypto API for local SHA-256 hashing
+* Portable `angel-proof/receipt/v1` JSON receipts
+* Solana Web3.js, Solana Memo Program, Phantom, and Solana Devnet RPC
+* Service worker for installability and offline reuse of the application shell
 
 ## Privacy and security boundaries
 
-- Files are processed in browser memory and are not uploaded by Angel Proof.
-- A receipt contains the file name, size, media type, last-modified timestamp, fingerprint, and optional public blockchain metadata.
-- Users should avoid testing sensitive files on devices or browsers they do not trust.
-- Solana Devnet is a public test network, not a production legal registry.
-- This prototype has not undergone an independent security audit.
+* Files are processed in browser memory and are not uploaded by Angel Proof.
+* A receipt contains the file name, size, media type, last-modified timestamp, fingerprint, and optional public blockchain metadata.
+* Users should avoid testing sensitive files on devices or browsers they do not trust.
+* Solana Devnet is a public test network, not a production legal registry.
+* This prototype has not undergone an independent security audit.
 
 ## Hackathon disclosure
 
-A basic web prototype existed before the Crypto World's Fair hackathon began on September 14, 2026. Commit `ea4ebb51006073800bdc95374ba0e927c98a3734` is the disclosed pre-hackathon baseline and is tagged `pre-hackathon-baseline`.
+A basic web prototype existed before the Crypto World's Fair hackathon began on September 14, 2026. The public GitHub repository was created during the competition period, so its first commit contains both the disclosed baseline and the first hackathon improvements.
 
-Work completed during the official competition period is recorded in subsequent commits and in [CHANGELOG.md](CHANGELOG.md).
+The pre-existing features and all work completed during the competition period are separated and documented in [CHANGELOG.md](CHANGELOG.md).
 
 ## Run locally
 
@@ -46,4 +48,3 @@ Serve the `dist` directory with any static HTTP server. Opening the page directl
 ## Project status
 
 Experimental hackathon prototype. The application currently uses Solana Devnet.
-
