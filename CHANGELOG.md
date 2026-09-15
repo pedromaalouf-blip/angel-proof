@@ -19,5 +19,5 @@ This file separates the disclosed pre-hackathon baseline from work completed dur
 - Optional Phantom-signed Solana Devnet Memo Program anchoring and verification.
 - Progressive Web App shell and Spanish interface.
 
-Baseline commit: `ea4ebb51006073800bdc95374ba0e927c98a3734`
+
 
